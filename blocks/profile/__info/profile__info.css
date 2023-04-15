@@ -1,0 +1,9 @@
+.profile__info {
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  
+  gap: 16px;
+  margin: 0 auto 0 30px;
+  padding: 0;
+}
