@@ -2,8 +2,20 @@
   max-width: 440px;
   display: flex;
   flex-direction: column;
-  
   gap: 16px;
-  margin: 0 auto 0 30px;
+  margin: 0 auto 30px;
   padding: 0;
 }
+
+@media screen and (max-width: 880px) {
+  .profile__info {
+    margin-bottom: 36px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .profile__info {
+    margin: 0 auto 36px;
+    grid-template-columns: 1fr 18px;
+  }
+} 

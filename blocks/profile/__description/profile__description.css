@@ -11,3 +11,12 @@
   overflow: hidden;
 }
 
+
+@media screen and (max-width: 480px) {
+  .profile__description {
+    font-size: 14px;
+    line-height: 16.94px;
+    text-align: center;
+  }
+}
+

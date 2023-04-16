@@ -2,5 +2,11 @@
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    /*margin-right: 30px;*/
 }
+
+@media screen and (max-width: 480px) {
+  .profile__avatar {
+      padding-bottom: 26px;
+  }
+} 
+    
