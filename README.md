@@ -1,7 +1,7 @@
 # «Место» - проектная работа для [Яндекс.Практикум](https://practicum.yandex.ru/ "Яндекс Практикум!")
 
 
-### [Ссылка на проект](https://agolubtsova.github.io/russian-travel/)
+### [Ссылка на проект](https://agolubtsova.github.io/mesto/)
 
 
 ### О проекте
