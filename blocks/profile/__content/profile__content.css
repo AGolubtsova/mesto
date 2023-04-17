@@ -1,5 +1,7 @@
 .profile__content {
   display: flex;
-  gap: 18px;
-  align-items: baseline;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+  justify-content: center;
 }

@@ -15,13 +15,16 @@
 
   <main class="content">
     <section class="profile" aria-lebel="профиль">
-      <img class="profile__avatar" src="./images/avatar/avatar.jpg" alt="фотография пользователя">
+      <!--<img class="profile__avatar" src="./images/avatar/avatar.jpg" alt="фотография пользователя">-->
       <div class="profile__info">
+        <img class="profile__avatar" src="./images/avatar/avatar.jpg" alt="фотография пользователя">
         <div class="profile__content">
-          <h1 class="profile__title">Жак-Ив Кусто</h1>
-          <button type="button" class="profile__edit-button"></button>
+          <div class="profile__row">
+            <h1 class="profile__title">Жак-Ив Кусто</h1>
+            <button type="button" class="profile__edit-button"></button>
+          </div>
+          <p class="profile__description">Исследователь океана</p>
         </div>
-        <p class="profile__description">Исследователь океана</p>
       </div>
       <button type="button" class="profile__add-button"></button>
     </section>
@@ -73,6 +76,22 @@
   <footer class="footer">
     <p class="footer__copyrights">&copy; 2023 Mesto Russia</p>
   </footer>
-  </div>   
+  <div class="popup">
+    <div class="popup__container">
+      <button type="button" class="popup__close-button" aria-label="Закрыть всплывающее окно"></button>
+      <h1 class="popup__title">Редактировать профиль</h1>
+      <form class="popup__form" name="popupFormProfile">
+        <fieldset class="popup__fieldset">
+          <input type="text" class="popup__input" name="username" id="userName-input" placeholder="Имя" minlength="2" maxlength="40" required>
+          <input type="text" class="popup__input" name="profession" id="userProf-input" placeholder="Профессия" minlength="2" maxlength="200" required>
+          <button type="submit" class="popup__submit">Сохранить</button>
+        </fieldset>
+      </form>
+    
+    </div>
+  </div>
+
+  </div> 
+  <script src="./scripts/index.js" defer></script>  
 </body>
 </html>
