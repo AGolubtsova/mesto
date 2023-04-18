@@ -2,13 +2,17 @@
   background-color: #fff;
   border-radius: 10px;
   max-width: 430px;
+  max-height: 330px;
   padding: 34px 36px 37px 36px;
   box-sizing: border-box;
   position: fixed;
+  transform: translateY(-33px);
 }
 @media screen and (max-width: 480px){
   .popup__container {
     max-width: 282px;
     padding: 25px 22px;
+    transform: translateY(-67px);
+    max-height: 322px;
   }
 }
