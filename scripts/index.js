@@ -7,17 +7,7 @@ const popupCloseButtonElement = popupElement.querySelector('.popup__close-button
 //нашла кнопку для открытия popup редактирования и назначила переменную
 const popupOpenedButtonElement = document.querySelector('.profile__edit-button');
 
-//вариант 1
-//объявляем функцию по изменению видимости popup
-//const PopupVisibility = function() {
-//    popupElement.classList.toggle('popup_opened');
-//} 
 
-//зарегистрировала обработчик собития по клику
-//popupOpenedButtonElement.addEventListener('click', PopupVisibility);
-//popupCloseButtonElement.addEventListener('click', PopupVisibility);
-
-//вариант 2
 const openPopup = function() {
   console.log('openPopup');
   popupElement.classList.add('popup_opened');
