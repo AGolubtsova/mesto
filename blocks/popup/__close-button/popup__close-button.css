@@ -19,14 +19,14 @@
 }
 
 @media screen and (max-width: 720px) {
-  .popup__close {
+  .popup__close-button {
       top: -36px;
       right: -36px;
   }
 }
   
   @media screen and (max-width: 600px) {
-    .popup__close {
+    .popup__close-button {
       width: 20px;
       height: 20px;
       top: -36px;

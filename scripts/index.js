@@ -7,6 +7,9 @@ const popupCloseButtonElement = popupElement.querySelector('.popup__close-button
 //нашла кнопку для открытия popup редактирования и назначила переменную
 const popupOpenedButtonElement = document.querySelector('.profile__edit-button');
 
+const formElement = document.querySelector('.popup__form');
+
+const SubmitCloseButtonElement = formElement.querySelector('.popup__submit');
 
 const openPopup = function() {
   console.log('openPopup');
@@ -17,9 +20,6 @@ const closePopup = function() {
   console.log('closePopup');
   popupElement.classList.remove('popup_opened');
 }
-
-popupOpenedButtonElement.addEventListener('click', openPopup);
-popupCloseButtonElement.addEventListener('click', closePopup);
 
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
@@ -41,12 +41,12 @@ function handleFormSubmit(evt) {
   let ProfileDescription = document.querySelector('.profile__description');
   ProfileDescription.textContent = jobInput.value;
 }
-
+popupOpenedButtonElement.addEventListener('click', openPopup);
+popupCloseButtonElement.addEventListener('click', closePopup);
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
-const formElement = document.querySelector('.popup__form');
 formElement.addEventListener('submit', handleFormSubmit); 
+
 //после отправки данных форма закрыввается
-const SubmitCloseButtonElement = formElement.querySelector('.popup__submit');
 SubmitCloseButtonElement.addEventListener('click', closePopup);
 
