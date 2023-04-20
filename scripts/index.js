@@ -8,16 +8,18 @@ const popupCloseButtonElement = popupElement.querySelector('.popup__close-button
 const popupOpenedButtonElement = document.querySelector('.profile__edit-button');
 
 const formElement = document.querySelector('.popup__form');
-
-const SubmitCloseButtonElement = formElement.querySelector('.popup__submit');
+const nameInput = formElement.querySelector('#userName-input');
+const jobInput = formElement.querySelector('#userProf-input');
+const profileTitle = document.querySelector('.profile__title');
+const profileDescription = document.querySelector('.profile__description');
 
 const openPopup = function() {
-  console.log('openPopup');
   popupElement.classList.add('popup_opened');
+  nameInput.value = profileTitle.textContent;
+  jobInput.value = profileDescription.textContent;
 }
 
 const closePopup = function() {
-  console.log('closePopup');
   popupElement.classList.remove('popup_opened');
 }
 
@@ -26,20 +28,9 @@ const closePopup = function() {
 function handleFormSubmit(evt) {
 // Просим форму не отправлять данные самостоятельно
   evt.preventDefault();  
-// Находим форму в DOM
-  let formElement = document.querySelector('.popup__form');
-// Находим поля формы в DOM
-  let nameInput = formElement.querySelector('#userName-input');
-  let jobInput = formElement.querySelector('#userProf-input');
-// Получите значение полей jobInput и nameInput из свойства value  
-  console.log(nameInput.value);
-  console.log(jobInput.value);
-// Вставьте новые значения с помощью textContent
-// Выберите элементы, куда должны быть вставлены значения полей
-  let ProfileTitle = document.querySelector('.profile__title');
-  ProfileTitle.textContent = nameInput.value;
-  let ProfileDescription = document.querySelector('.profile__description');
-  ProfileDescription.textContent = jobInput.value;
+  profileTitle.textContent = nameInput.value;
+  profileDescription.textContent = jobInput.value;
+  closePopup();
 }
 popupOpenedButtonElement.addEventListener('click', openPopup);
 popupCloseButtonElement.addEventListener('click', closePopup);
@@ -47,6 +38,4 @@ popupCloseButtonElement.addEventListener('click', closePopup);
 // он будет следить за событием “submit” - «отправка»
 formElement.addEventListener('submit', handleFormSubmit); 
 
-//после отправки данных форма закрыввается
-SubmitCloseButtonElement.addEventListener('click', closePopup);
 
