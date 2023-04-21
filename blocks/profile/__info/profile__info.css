@@ -11,7 +11,6 @@
   .profile__info {
     margin-bottom: 32px;
     flex-direction: column;
-    padding-left: 18px;
     gap: 0;
   }
 }
