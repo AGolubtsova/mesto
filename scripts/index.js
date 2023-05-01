@@ -41,6 +41,8 @@ const openPopup = function() {
   jobInput.value = profileDescription.textContent;
 }
 
+
+
 const closePopup = function() {
   popupElement.classList.remove('popup_opened');
 }

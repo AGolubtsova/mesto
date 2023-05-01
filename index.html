@@ -12,86 +12,56 @@
     <header class="header">
       <img class="header__logo" src="./images/logo/logo.svg" alt="логотип сайта Место">
     </header>
-  <main class="content">
-    <section class="profile">
-      <div class="profile__info">
-        <img class="profile__avatar" src="./images/avatar/avatar.jpg" alt="фотография пользователя">
-        <div class="profile__content">
-          <div class="profile__row">
-            <h1 class="profile__title">Жак-Ив Кусто</h1>
-            <button type="button" class="profile__edit-button" aria-label="Редактировать форму"></button>
-          </div>
-          <p class="profile__description">Исследователь океана</p>
-        </div>
-      </div>
-      <button type="button" class="profile__add-button"></button>
-    </section>
-    <section class="elements">
-        <!--<article class="element">
-            <img class="element__image" src="./images/photo-cards/karachaevsk.jpg" alt="фото Карачаевска">
-            <div class="element__title-wrapper">
-              <h2 class="element__title">Карачаевск</h2>
-              <button type="button" class="element__like-button" aria-label="Поставить лайк"></button>
+    <main class="content">
+      <section class="profile">
+        <div class="profile__info">
+          <img class="profile__avatar" src="./images/avatar/avatar.jpg" alt="фотография пользователя">
+          <div class="profile__content">
+            <div class="profile__row">
+              <h1 class="profile__title">Жак-Ив Кусто</h1>
+              <button type="button" class="profile__edit-button" aria-label="Редактировать форму"></button>
             </div>
-          </article>
-        <article class="element">
-          <img class="element__image" src="./images/photo-cards/elbrus.png" alt="фото горы Эльбрус">
-          <div class="element__title-wrapper">
-            <h2 class="element__title">Гора Эльбрус</h2>
-            <button type="button" class="element__like-button" aria-label="Поставить лайк"></button>
+            <p class="profile__description">Исследователь океана</p>
           </div>
-        </article>
-        <article class="element">
-          <img class="element__image" src="./images/photo-cards/dombai.png" alt="фото горы Домбай">
-          <div class="element__title-wrapper">
-            <h2 class="element__title">Домбай</h2>
-            <button type="button" class="element__like-button" aria-label="Поставить лайк"></button>
-          </div>  
-        </article>
-        <article class="element">
-          <img class="element__image" src="./images/photo-cards/elbrus.png" alt="фото горы Эльбрус">
-          <div class="element__title-wrapper">
-            <h2 class="element__title">Гора Эльбрус</h2>
-            <button type="button" class="element__like-button" aria-label="Поставить лайк"></button>
-          </div>  
-        </article>
-        <article class="element">
-          <img class="element__image" src="./images/photo-cards/dombai.png" alt="фото горы Домбай">
-          <div class="element__title-wrapper">
-            <h2 class="element__title">Домбай</h2>
-            <button type="button" class="element__like-button" aria-label="Поставить лайк"></button>
-          </div>  
-        </article>
-        <article class="element">
-          <img class="element__image" src="./images/photo-cards/karachaevsk.jpg" alt="фото Карачаевска">
-          <div class="element__title-wrapper">
-            <h2 class="element__title">Гора Эльбрус</h2>
-            <button type="button" class="element__like-button" aria-label="Поставить лайк"></button>
-          </div>
-        </article>-->
+        </div>
+        <button type="button" class="profile__add-button"></button>
       </section>
-  </main>
-  <footer class="footer">
-    <p class="footer__copyrights">&copy; 2023 Mesto Russia</p>
-  </footer>
-  <div class="popup">
-    <div class="popup__container">
-      <button type="button" class="popup__close-button" aria-label="Закрыть всплывающее окно"></button>
-      <h2 class="popup__title">Редактировать профиль</h2>
-      <form class="popup__form" name="popupFormProfile" method="POST">
-        <fieldset class="popup__fieldset">
-          <input type="text" class="popup__input" name="username" id="userName-input" placeholder="Имя" required>
-          <input type="text" class="popup__input" name="profession" id="userProf-input" placeholder="Профессия" required>
-          <button type="submit" class="popup__submit">Сохранить</button>
-        </fieldset>
-      </form>
+      <section class="elements"></section>
+    </main>
+    <footer class="footer">
+      <p class="footer__copyrights">&copy; 2023 Mesto Russia</p>
+    </footer>
+    <div class="popup popup_profile-edit">
+      <div class="popup__container">
+        <button type="button" class="popup__close-button" aria-label="Закрыть всплывающее окно"></button>
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <form class="popup__form" name="popupFormProfile" method="POST">
+          <fieldset class="popup__fieldset">
+            <input type="text" class="popup__input" name="username" id="userName-input" placeholder="Имя" required>
+            <input type="text" class="popup__input" name="profession" id="userProf-input" placeholder="Профессия" required>
+            <button type="submit" class="popup__submit">Сохранить</button>
+          </fieldset>
+        </form>
+      </div>
     </div>
-  </div>
+    <div class="popup popup_card-add">
+      <div class="popup__container">
+        <button type="button" class="popup__close-button" aria-label="Закрыть всплывающее окно"></button>
+        <h2 class="popup__title">Новое место</h2>
+        <form class="popup__form" name="popupFormAddCard" method="POST">
+          <fieldset class="popup__fieldset">
+            <input type="text" class="popup__input" name="name" id="placeName-input" placeholder="Название" required>
+            <input type="url" class="popup__input" name="link" id="placeLink-input" placeholder="Ссылка на картинку" required>
+            <button type="submit" class="popup__submit">Создать</button>
+          </fieldset>
+        </form>  
+      </div>
+    </div>
   </div> 
 
   <template id="element-template">
     <li class="element">
-      <img class="element__image">
+      <img class="element__image" src="#">
       <div class="element__title-wrapper">
         <h2 class="element__title"></h2>
         <button type="button" class="element__like-button" aria-label="Поставить лайк"></button>
