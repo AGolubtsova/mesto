@@ -8,6 +8,13 @@ const profileTitle = document.querySelector('.profile__title');
 const profileDescription = document.querySelector('.profile__description');
 const templateElement = document.querySelector('#element-template');
 const cardContainer = document.querySelector('.elements');
+const zoomImageElement = document.querySelector('.popup_zoom-picture');
+let imageUrlElement = zoomImageElement.querySelector('.popup__image');
+let imageTitleElement = zoomImageElement.querySelector('.popup__caption');
+const addCardElement = document.querySelector('.popup_card-add');
+const cardElementOpenButton = document.querySelector('.profile__add-button');
+
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -41,7 +48,23 @@ const openPopup = function() {
   jobInput.value = profileDescription.textContent;
 }
 
+const openModal = function(modal) {
+  modal.classList.add('popup_opened');
+}
 
+function openImagePopup(event) {
+  let cardElement = event.target.parentElement;
+  let cardName = cardElement.querySelector('.element__title');
+  let cardLink = cardElement.querySelector('.element__image');
+  console.log(cardName.textContent);
+  imageTitleElement.textContent = cardName.textContent;
+  imageUrlElement.src = cardLink.src; 
+  openModal(zoomImageElement);
+} 
+
+function openCardPopup() {
+  openModal(addCardElement);
+}
 
 const closePopup = function() {
   popupElement.classList.remove('popup_opened');
@@ -55,6 +78,7 @@ function handleFormSubmit(evt) {
 }
 
 popupOpenedButtonElement.addEventListener('click', openPopup);
+cardElementOpenButton.addEventListener('click', openCardPopup);
 popupCloseButtonElement.addEventListener('click', closePopup);
 formElement.addEventListener('submit', handleFormSubmit); 
 
@@ -64,7 +88,7 @@ function insertCard(name, link) {
   let cardLink = card.querySelector('.element__image');
   cardName.textContent = name;
   cardLink.src = link;
-  //cardLink.setAttribute('src', link);
+  cardLink.addEventListener('click', openImagePopup);
   cardContainer.prepend(card);
 }
 
