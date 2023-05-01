@@ -27,7 +27,7 @@
       <button type="button" class="profile__add-button"></button>
     </section>
     <section class="elements">
-        <article class="element">
+        <!--<article class="element">
             <img class="element__image" src="./images/photo-cards/karachaevsk.jpg" alt="фото Карачаевска">
             <div class="element__title-wrapper">
               <h2 class="element__title">Карачаевск</h2>
@@ -68,7 +68,7 @@
             <h2 class="element__title">Гора Эльбрус</h2>
             <button type="button" class="element__like-button" aria-label="Поставить лайк"></button>
           </div>
-        </article>
+        </article>-->
       </section>
   </main>
   <footer class="footer">
@@ -88,6 +88,16 @@
     </div>
   </div>
   </div> 
+
+  <template id="element-template">
+    <li class="element">
+      <img class="element__image">
+      <div class="element__title-wrapper">
+        <h2 class="element__title"></h2>
+        <button type="button" class="element__like-button" aria-label="Поставить лайк"></button>
+      </div>
+    </li>
+  </template>
   <script src="./scripts/index.js" defer></script>  
 </body>
 </html>
