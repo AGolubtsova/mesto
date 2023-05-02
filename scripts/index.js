@@ -1,18 +1,21 @@
 const popupElement = document.querySelector('.popup');
+const addCardElement = document.querySelector('.popup_card-add');
+const zoomImageElement = document.querySelector('.popup_zoom-picture');
 const popupCloseButtonElement = popupElement.querySelector('.popup__close-button');
 const popupOpenedButtonElement = document.querySelector('.profile__edit-button');
 const formElement = document.querySelector('.popup__form');
 const nameInput = formElement.querySelector('#userName-input');
 const jobInput = formElement.querySelector('#userProf-input');
+const placeInput = addCardElement.querySelector('#placeName-input');
+const placeLink = addCardElement.querySelector('#placeLink-input');
 const profileTitle = document.querySelector('.profile__title');
 const profileDescription = document.querySelector('.profile__description');
 const templateElement = document.querySelector('#element-template');
 const cardContainer = document.querySelector('.elements');
-const zoomImageElement = document.querySelector('.popup_zoom-picture');
 let imageUrlElement = zoomImageElement.querySelector('.popup__image');
 let imageTitleElement = zoomImageElement.querySelector('.popup__caption');
-const addCardElement = document.querySelector('.popup_card-add');
 const cardElementOpenButton = document.querySelector('.profile__add-button');
+const formElementAddCard = addCardElement.querySelector('.popup__form');
 
 
 const initialCards = [
@@ -56,7 +59,6 @@ function openImagePopup(event) {
   let cardElement = event.target.parentElement;
   let cardName = cardElement.querySelector('.element__title');
   let cardLink = cardElement.querySelector('.element__image');
-  console.log(cardName.textContent);
   imageTitleElement.textContent = cardName.textContent;
   imageUrlElement.src = cardLink.src; 
   openModal(zoomImageElement);
@@ -96,3 +98,9 @@ for (let i = 0; i < 6; i++) {
   insertCard(initialCards[i].name, initialCards[i].link);
 }
 
+function insertCardOnSubmit(evt) {
+  evt.preventDefault();  
+  insertCard(placeInput.value, placeLink.value);
+  closePopup();
+}
+formElementAddCard.addEventListener('submit', insertCardOnSubmit); 
