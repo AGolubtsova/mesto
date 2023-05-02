@@ -1,4 +1,3 @@
-const popupElement = document.querySelector('.popup');
 const popupProfileEditElement = document.querySelector('.popup_profile-edit');
 const addCardElement = document.querySelector('.popup_card-add');
 const zoomImageElement = document.querySelector('.popup_zoom-picture');
@@ -93,7 +92,7 @@ function handleFormSubmit(evt) {
   evt.preventDefault();  
   profileTitle.textContent = nameInput.value;
   profileDescription.textContent = jobInput.value;
-  closePopup();
+  closeModal(evt);
 }
 
 popupOpenedButtonElement.addEventListener('click', openPopup);
@@ -122,6 +121,6 @@ for (let i = 0; i < 6; i++) {
 function insertCardOnSubmit(evt) {
   evt.preventDefault();  
   insertCard(placeInput.value, placeLink.value);
-  closePopup();
+  closeModal(evt);
 }
 formElementAddCard.addEventListener('submit', insertCardOnSubmit); 

@@ -5,8 +5,8 @@
 }
 
 @media screen and (max-width: 880px) {
-    .profile__row {
-      gap: 10px;
-      max-width: 282px;
-    }
+  .profile__row {
+    gap: 10px;
+    max-width: 282px;
   }
+}
