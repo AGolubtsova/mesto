@@ -72,6 +72,10 @@ const closePopup = function() {
   popupElement.classList.remove('popup_opened');
 }
 
+function likeButtonPopup(event) {
+  event.target.classList.toggle('element__like-button_active');
+}
+
 function handleFormSubmit(evt) {
   evt.preventDefault();  
   profileTitle.textContent = nameInput.value;
@@ -88,9 +92,11 @@ function insertCard(name, link) {
   let card = templateElement.content.cloneNode(true);
   let cardName = card.querySelector('.element__title');
   let cardLink = card.querySelector('.element__image');
+  let likeButtonElement = card.querySelector('.element__like-button');
   cardName.textContent = name;
   cardLink.src = link;
   cardLink.addEventListener('click', openImagePopup);
+  likeButtonElement.addEventListener('click', likeButtonPopup);
   cardContainer.prepend(card);
 }
 
