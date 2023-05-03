@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./pages/index.css">
     <title>Место</title>
+    <script src="./scripts/constants.js" defer></script> 
+    <script src="./scripts/index.js" defer></script>  
 </head>
 <body>
   <div class="page">
@@ -52,7 +54,7 @@
           <fieldset class="popup__fieldset">
             <input type="text" class="popup__input" name="name" id="placeName-input" placeholder="Название" required>
             <input type="url" class="popup__input" name="link" id="placeLink-input" placeholder="Ссылка на картинку" required>
-            <button type="submit" class="popup__submit">Создать</button>
+            <button type="submit" class="popup__submit" aria-label="Создать карточку с новым местом">Создать</button>
           </fieldset>
         </form>  
       </div>
@@ -74,9 +76,8 @@
         <h2 class="element__title"></h2>
         <button type="button" class="element__like-button" aria-label="Поставить лайк"></button>
       </div>
-      <button class="element__delete-button"></button>
+      <button class="element__delete-button" aria-label="Удалить карточку"></button>
     </li>
   </template>
-  <script src="./scripts/index.js" defer></script>  
 </body>
 </html>
