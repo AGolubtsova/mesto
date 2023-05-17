@@ -1,3 +1,4 @@
+const popupModals = document.querySelectorAll('.popup');
 const popupProfileEditElement = document.querySelector('.popup_profile-edit');
 const popupAddCardElement = document.querySelector('.popup_card-add');
 const zoomImageElement = document.querySelector('.popup_zoom-picture');
@@ -19,6 +20,7 @@ const formElementAddCard = popupAddCardElement.querySelector('.popup__form');
 
 const openModal = function(modal) {
   modal.classList.add('popup_opened');
+  document.addEventListener('keydown', escCloseModal);
 }
 
 const openProfileEditPopup = function() {
@@ -41,7 +43,27 @@ function openCardPopup() {
 
 const closeModal = function(modal) {
   modal.classList.remove('popup_opened');
+  document.removeEventListener('keydown', escCloseModal);
 }
+//закртыие модального окна через overlay
+const overlayCloseModal = function(evt) {
+  [...popupModals].forEach((item) => {
+    if (evt.target.classList.contains('popup_opened')) {
+    closeModal(item);
+    }
+  });
+}
+document.addEventListener('click', overlayCloseModal);
+
+//закрытие модального окна через esc
+const escCloseModal = function(evt) {
+  [...popupModals].forEach((item) => {
+    if (evt.key === 'Escape') {
+      closeModal(item);
+    }
+  });
+}
+//document.addEventListener('keydown', escCloseModal);
 
 popupCloseButtonElements.forEach(function(item) { 
   item.addEventListener('click', (evt) => closeModal(evt.target.closest('.popup')));
