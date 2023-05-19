@@ -6,4 +6,5 @@
   cursor: pointer;
   color: #fff;
   background-color: black;
+  object-fit: cover;
 }
