@@ -17,18 +17,17 @@ const imageUrlElement = zoomImageElement.querySelector('.popup__image');
 const imageTitleElement = zoomImageElement.querySelector('.popup__caption');
 const cardPopupOpenButton = document.querySelector('.profile__add-button');
 const formElementAddCard = popupAddCardElement.querySelector('.popup__form');
-const popupAddCardsubmitButtonElement = popupAddCardElement.querySelector('.popup__submit');
+const popupAddCardSubmitButtonElement = popupAddCardElement.querySelector('.popup__submit');
 
 const openModal = function(modal) {
   modal.classList.add('popup_opened');
-  document.addEventListener('keydown', escCloseModal);
+  document.addEventListener('keydown', closePopupByEscape);
 }
 
 const openProfileEditPopup = function() {
   openModal(popupProfileEditElement);
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileDescription.textContent;
-  formElementEditProfile.reset();
 }
  
 function openCardPopup() {
@@ -37,23 +36,22 @@ function openCardPopup() {
 
 const closeModal = function(modal) {
   modal.classList.remove('popup_opened');
-  document.removeEventListener('keydown', escCloseModal);
+  document.removeEventListener('keydown', closePopupByEscape);
 }
+
 /** закртыие модального окна через overlay */
-const overlayCloseModal = function(evt) {
-  [...popupModals].forEach((item) => {
-    if (evt.target.classList.contains('popup_opened')) {
-      closeModal(item);
-    }
-  });
+const closePopupByOverlay = function(evt) {
+  if (evt.target.classList.contains('popup_opened')) {
+    closeModal(evt.target);
+  }
 }
 
 popupModals.forEach((popup) => {
-  popup.addEventListener('click', overlayCloseModal);
+  popup.addEventListener('click', closePopupByOverlay);
 });
 
 /** закрытие модального окна через esc */
-const escCloseModal = function(evt) {
+const closePopupByEscape = function(evt) {
   if (evt.key === 'Escape') {
     const openedPopupElement = document.querySelector('.popup_opened');
     closeModal(openedPopupElement);
@@ -76,10 +74,17 @@ function handleProfileFormSubmit(evt) {
   closeModal(popupProfileEditElement);
 }
 
-const cardData = {
-  useName: 'name',
-  srcImage: 'link',
-  altImage: 'link'
+/** 
+ * создаем объект карточки c помощью функции
+ * передаем ее далее как параметр функций
+ */
+function createCardData(name, link) {
+  const cardData = {
+    userName: name, 
+    srcImage: link
+  };
+
+  return cardData;
 }
 
 /** функция создания карточки */
@@ -90,14 +95,14 @@ function createCard(cardData) {
   const likeButtonElement = card.querySelector('.element__like-button');
   const deleteCardButtonElement = card.querySelector('.element__delete-button');
 
-  cardName.textContent = cardData.useName;
+  cardName.textContent = cardData.userName;
   cardLink.src =  cardData.srcImage;
-  cardLink.alt = cardData.useName;
+  cardLink.alt = cardData.userName;
   
   cardLink.addEventListener('click', () => {
-    imageTitleElement.textContent = cardData.useName;
+    imageTitleElement.textContent = cardData.userName;
     imageUrlElement.src = cardData.srcImage; 
-    imageUrlElement.alt = cardData.useName; 
+    imageUrlElement.alt = cardData.userName; 
 
     openModal(zoomImageElement);
   });
@@ -108,24 +113,6 @@ function createCard(cardData) {
   
   deleteCardButtonElement.addEventListener('click', handleDeleteClick);
   return card;
-}
-
-/** 
- * создаем объект карточки c помощью функции
- * передаем ее далее как параметр функций
- */
-function createCardData(name, link) {
-  const cardData = {
-    useName: '', 
-    srcImage: '',
-    altImage: ''
-  };
-
-  cardData.useName = name;
-  cardData.srcImage = link;
-  cardData. altImage = name;
-
-  return cardData;
 }
 
 for (let i = 0; i < initialCards.length; i++) {
@@ -139,8 +126,8 @@ function insertCardOnSubmit(evt) {
   cardContainer.prepend(card);
   closeModal(popupAddCardElement);
   formElementAddCard.reset();
-  popupAddCardsubmitButtonElement.disabled = true;
-  popupAddCardsubmitButtonElement.classList.add('popup__submit_disabled');
+  popupAddCardSubmitButtonElement.disabled = true;
+  popupAddCardSubmitButtonElement.classList.add('popup__submit_disabled');
 }
 
 profileEditButtonElement.addEventListener('click', openProfileEditPopup);
