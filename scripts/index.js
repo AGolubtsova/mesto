@@ -1,5 +1,6 @@
-import { initialCards } from './constants.js';
+import { initialCards, configFormSelector } from './constants.js';
 import { Card } from './Card.js';
+import { FormValidator } from './FormValidator.js';
 
 const popupModals = document.querySelectorAll('.popup');
 const popupProfileEditElement = document.querySelector('.popup_profile-edit');
@@ -14,7 +15,6 @@ const placeInput = popupAddCardElement.querySelector('#placeName-input');
 const placeLink = popupAddCardElement.querySelector('#placeLink-input');
 const profileTitle = document.querySelector('.profile__title');
 const profileDescription = document.querySelector('.profile__description');
-const templateElement = document.querySelector('#element-template');
 const cardContainer = document.querySelector('.elements');
 const imageUrlElement = zoomImageElement.querySelector('.popup__image');
 const imageTitleElement = zoomImageElement.querySelector('.popup__caption');
@@ -68,9 +68,6 @@ popupCloseButtonElements.forEach(function(item) {
 function handleDeleteClick(event) {
   const card = event.target.closest('.element');
   card.remove();
-  //this._element.remove();
-  //this._element = null;
-  
 }
 
 function handleProfileFormSubmit(evt) {
@@ -101,44 +98,13 @@ function openModalZooom(name, link) {
   openModal(zoomImageElement);
 }
 
-/** функция создания карточки */
-/*function createCard(cardData) {
-  const card = templateElement.content.cloneNode(true);
-  const cardName = card.querySelector('.element__title');
-  const cardLink = card.querySelector('.element__image');
-  const likeButtonElement = card.querySelector('.element__like-button');
-  const deleteCardButtonElement = card.querySelector('.element__delete-button');
-
-  cardName.textContent = cardData.userName;
-  cardLink.src =  cardData.srcImage;
-  cardLink.alt = cardData.userName;
-  
-  cardLink.addEventListener('click', () => {
-    imageTitleElement.textContent = cardData.userName;
-    imageUrlElement.src = cardData.srcImage; 
-    imageUrlElement.alt = cardData.userName; 
-
-    openModal(zoomImageElement);
-  });*/
-
-  //likeButtonElement.addEventListener('click', () => {
-  //  likeButtonElement.classList.toggle('element__like-button_active');
-  //});
-  
-  /*deleteCardButtonElement.addEventListener('click', handleDeleteClick);
-    return card;
-  }*/
-
-//for (let i = 0; i < initialCards.length; i++) {
-//  const card = createCard(createCardData(initialCards[i].name, initialCards[i].link));
-//  cardContainer.prepend(card);
-//}
 function onLikeCard(buttonItem) {
   buttonItem.classList.toggle('element__like-button_active');
 }
 
 initialCards.forEach((item) => {
-  const card = new Card(item, '#element-template', onLikeCard, handleDeleteClick, openModalZooom);
+  const card = new Card(createCardData(item.name, item.link), '#element-template',
+    onLikeCard, handleDeleteClick, openModalZooom);
   const cardElement = card.generateCard();
 
   // Добавляем в DOM
@@ -148,7 +114,8 @@ initialCards.forEach((item) => {
 function insertCardOnSubmit(evt) {
   evt.preventDefault();
 
-  const card = new Card(createCardData(placeInput.value, placeLink.value), '#element-template');
+  const card = new Card(createCardData(placeInput.value, placeLink.value), '#element-template',
+    onLikeCard, handleDeleteClick, openModalZooom);
   const cardElement = card.generateCard();
 
  // const card = createCard(createCardData(placeInput.value, placeLink.value));
@@ -158,6 +125,13 @@ function insertCardOnSubmit(evt) {
   popupAddCardSubmitButtonElement.disabled = true;
   popupAddCardSubmitButtonElement.classList.add('popup__submit_disabled');
 }
+
+const formValidatorPopupProfileEdit = new FormValidator(configFormSelector, popupProfileEditElement);
+formValidatorPopupProfileEdit.enableValidation();
+
+
+const formValidatorpopupAddCard = new FormValidator(configFormSelector, popupAddCardElement);
+formValidatorpopupAddCard .enableValidation();
 
 profileEditButtonElement.addEventListener('click', openProfileEditPopup);
 cardPopupOpenButton.addEventListener('click', openCardPopup);

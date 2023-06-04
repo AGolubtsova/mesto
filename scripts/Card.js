@@ -1,8 +1,8 @@
 export class Card {
   /* 1. Объект карточки 2. Template элемента*/    
   constructor(cardData, templateElementSelector, onLikeCard, onDeleteCard, openModalCallback) {
-    this._name = cardData.name;
-    this._link = cardData.link;
+    this._name = cardData.userName;
+    this._link = cardData.srcImage;
     this._templateElementSelector = templateElementSelector;
     this._onLikeCard = onLikeCard;
     this._onDeleteCard = onDeleteCard;
@@ -26,7 +26,6 @@ export class Card {
     const likeButtonElement = this._element.querySelector('.element__like-button');
     
     likeButtonElement.addEventListener('click', () => {
-      //likeButtonElement.classList.toggle('element__like-button_active');
       this._onLikeCard(likeButtonElement);
     });
 
@@ -34,8 +33,6 @@ export class Card {
     const deleteCardButtonElement = this._element.querySelector('.element__delete-button');
     deleteCardButtonElement.addEventListener('click', (event) => {
         this._onDeleteCard(event);
-        //this._element.remove();
-        //this._element = null;
     });
 
     /*Слушатель нажатия на изображение */
@@ -61,6 +58,5 @@ export class Card {
 
     return this._element;
   }
-
 } 
 
