@@ -21,6 +21,8 @@ const imageTitleElement = zoomImageElement.querySelector('.popup__caption');
 const cardPopupOpenButton = document.querySelector('.profile__add-button');
 const formElementAddCard = popupAddCardElement.querySelector('.popup__form');
 const popupAddCardSubmitButtonElement = popupAddCardElement.querySelector('.popup__submit');
+const profileForm = document.forms["popupFormProfile"];
+const cardForm = document.forms["popupFormAddCard"];
 
 const openModal = function(modal) {
   modal.classList.add('popup_opened');
@@ -65,11 +67,6 @@ popupCloseButtonElements.forEach(function(item) {
   item.addEventListener('click', (evt) => closeModal(evt.target.closest('.popup')));
 });
 
-function handleDeleteClick(event) {
-  const card = event.target.closest('.element');
-  card.remove();
-}
-
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();  
   profileTitle.textContent = nameInput.value;
@@ -98,39 +95,36 @@ function openModalZooom(name, link) {
   openModal(zoomImageElement);
 }
 
-function onLikeCard(buttonItem) {
-  buttonItem.classList.toggle('element__like-button_active');
+function  createCard(item) {
+  const card = new Card(createCardData(item.name, item.link), '#element-template', openModalZooom);
+  const cardElement = card.generateCard();
+  return cardElement;
 }
 
 initialCards.forEach((item) => {
-  const card = new Card(createCardData(item.name, item.link), '#element-template',
-    onLikeCard, handleDeleteClick, openModalZooom);
-  const cardElement = card.generateCard();
-
-  // Добавляем в DOM
-  document.querySelector('.elements').prepend(cardElement);
+  //const card = new Card(createCardData(item.name, item.link), '#element-template', openModalZooom);
+  //const cardElement = card.generateCard();
+  const cardElement = createCard(item);
+  cardContainer.prepend(cardElement);
 });
 
 function insertCardOnSubmit(evt) {
   evt.preventDefault();
+  const cardElement = createCard(placeInput.value, placeLink.value);
+  //const card = new Card(createCardData(placeInput.value, placeLink.value), '#element-template', openModalZooom);
+  //const cardElement = card.generateCard();
 
-  const card = new Card(createCardData(placeInput.value, placeLink.value), '#element-template',
-    onLikeCard, handleDeleteClick, openModalZooom);
-  const cardElement = card.generateCard();
-
- // const card = createCard(createCardData(placeInput.value, placeLink.value));
   cardContainer.prepend(cardElement);
   closeModal(popupAddCardElement);
   formElementAddCard.reset();
-  popupAddCardSubmitButtonElement.disabled = true;
-  popupAddCardSubmitButtonElement.classList.add('popup__submit_disabled');
+  popupAddCardSubmitButtonElement.resetValidation();
 }
 
-const formValidatorPopupProfileEdit = new FormValidator(configFormSelector, popupProfileEditElement);
+const formValidatorPopupProfileEdit = new FormValidator(configFormSelector, profileForm);
 formValidatorPopupProfileEdit.enableValidation();
 
 
-const formValidatorpopupAddCard = new FormValidator(configFormSelector, popupAddCardElement);
+const formValidatorpopupAddCard = new FormValidator(configFormSelector, cardForm);
 formValidatorpopupAddCard .enableValidation();
 
 profileEditButtonElement.addEventListener('click', openProfileEditPopup);

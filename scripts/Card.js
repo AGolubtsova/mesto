@@ -1,11 +1,9 @@
 export class Card {
   /* 1. Объект карточки 2. Template элемента*/    
-  constructor(cardData, templateElementSelector, onLikeCard, onDeleteCard, openModalCallback) {
+  constructor(cardData, templateElementSelector, openModalCallback) {
     this._name = cardData.userName;
     this._link = cardData.srcImage;
     this._templateElementSelector = templateElementSelector;
-    this._onLikeCard = onLikeCard;
-    this._onDeleteCard = onDeleteCard;
     this._openModalCallback = openModalCallback;
   }
 
@@ -19,20 +17,26 @@ export class Card {
 
     return cardElement;
   }
+  _onLikeCard() {
+    this._elementLikeBtn.classList.toggle('element__like-button_active');
+  }
+  
+  _onDeleteCard() {
+    this._element.remove();
+    this._element = null;
+    
+  }
 
   /* Устанавливаем слушатели на карточку: лайк, удаление, нажатие на изображение*/
   _setEventListeners() {
     /*Слушатель кнопки лайка */
-    const likeButtonElement = this._element.querySelector('.element__like-button');
-    
-    likeButtonElement.addEventListener('click', () => {
-      this._onLikeCard(likeButtonElement);
+    this._elementLikeBtn.addEventListener('click', () => {
+      this._onLikeCard();
     });
 
     /*Слушатель кнопки удаления */
-    const deleteCardButtonElement = this._element.querySelector('.element__delete-button');
-    deleteCardButtonElement.addEventListener('click', (event) => {
-        this._onDeleteCard(event);
+    this._elementDeleteBtn.addEventListener('click', () => {
+        this._onDeleteCard();
     });
 
     /*Слушатель нажатия на изображение */
