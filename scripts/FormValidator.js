@@ -20,13 +20,13 @@ export class FormValidator {
     buttonElement.classList.remove(this._inactiveButtonClass);
   }
   /** метод для очистки ошибок и управления кнопкой */
-  resetValidation() {
-    this._toggleButtonState(); 
+  resetValidation(buttonElement) {
+    this._toggleButtonState(buttonElement); 
 
     this._inputList.forEach((inputElement) => {
-      this._hideInputError(inputElement)
+      const errorElement = this._formElement.querySelector(`#${inputElement.name}-error`);
+      this._hideInputError(inputElement, errorElement);
     });
-
   }
 
   _toggleButtonState(buttonElement, isActive) {
@@ -42,7 +42,7 @@ export class FormValidator {
     errorElement.textContent = inputElement.validationMessage;
   }
 
-  _hideInputError(inputElement, errorElement, config) {
+  _hideInputError(inputElement, errorElement) {
     inputElement.classList.remove(this._inputErrorClass);
     errorElement.textContent = inputElement.validationMessage;
   }
@@ -50,7 +50,7 @@ export class FormValidator {
 /** функция проверки валидности */
   _checkInputValidation(inputElement, formElement) {
     const inputValid = inputElement.validity.valid;
-    const errorElement = formElement.querySelector(`#${inputElement.name}-error`);
+    const errorElement = this._formElement.querySelector(`#${inputElement.name}-error`);
     
     if (!inputValid) {
         this._showInputError(inputElement, errorElement);

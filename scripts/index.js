@@ -102,22 +102,23 @@ function  createCard(item) {
 }
 
 initialCards.forEach((item) => {
-  //const card = new Card(createCardData(item.name, item.link), '#element-template', openModalZooom);
-  //const cardElement = card.generateCard();
   const cardElement = createCard(item);
   cardContainer.prepend(cardElement);
 });
 
 function insertCardOnSubmit(evt) {
   evt.preventDefault();
-  const cardElement = createCard(placeInput.value, placeLink.value);
-  //const card = new Card(createCardData(placeInput.value, placeLink.value), '#element-template', openModalZooom);
-  //const cardElement = card.generateCard();
+
+  const item = {
+    name: placeInput.value,
+    link: placeLink.value
+  }
+  const cardElement = createCard(item);
 
   cardContainer.prepend(cardElement);
   closeModal(popupAddCardElement);
   formElementAddCard.reset();
-  popupAddCardSubmitButtonElement.resetValidation();
+  formValidatorpopupAddCard.resetValidation(popupAddCardSubmitButtonElement);
 }
 
 const formValidatorPopupProfileEdit = new FormValidator(configFormSelector, profileForm);
