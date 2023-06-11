@@ -20,7 +20,6 @@ const imageUrlElement = zoomImageElement.querySelector('.popup__image');
 const imageTitleElement = zoomImageElement.querySelector('.popup__caption');
 const cardPopupOpenButton = document.querySelector('.profile__add-button');
 const formElementAddCard = popupAddCardElement.querySelector('.popup__form');
-const popupAddCardSubmitButtonElement = popupAddCardElement.querySelector('.popup__submit');
 const profileForm = document.forms["popupFormProfile"];
 const cardForm = document.forms["popupFormAddCard"];
 
@@ -30,6 +29,7 @@ const openModal = function(modal) {
 }
 
 const openProfileEditPopup = function() {
+  formValidatorPopupProfileEdit.resetValidation();
   openModal(popupProfileEditElement);
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileDescription.textContent;
@@ -118,15 +118,14 @@ function insertCardOnSubmit(evt) {
   cardContainer.prepend(cardElement);
   closeModal(popupAddCardElement);
   formElementAddCard.reset();
-  formValidatorpopupAddCard.resetValidation(popupAddCardSubmitButtonElement);
+  formValidatorpopupAddCard.resetValidation();
 }
 
 const formValidatorPopupProfileEdit = new FormValidator(configFormSelector, profileForm);
 formValidatorPopupProfileEdit.enableValidation();
 
-
 const formValidatorpopupAddCard = new FormValidator(configFormSelector, cardForm);
-formValidatorpopupAddCard .enableValidation();
+formValidatorpopupAddCard.enableValidation();
 
 profileEditButtonElement.addEventListener('click', openProfileEditPopup);
 cardPopupOpenButton.addEventListener('click', openCardPopup);
