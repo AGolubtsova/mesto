@@ -44,7 +44,7 @@ export class FormValidator {
 
   _hideInputError(inputElement, errorElement) {
     inputElement.classList.remove(this._inputErrorClass);
-    errorElement.textContent = ""; //inputElement.validationMessage;
+    errorElement.textContent = "";
   }
 
 /** функция проверки валидности */
