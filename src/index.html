@@ -4,19 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./pages/index.css">
+    <!--<link rel="stylesheet" href="./pages/index.css">-->
     <title>Место</title>
     <script src="./scripts/index.js" type="module"></script>  
 </head>
 <body>
   <div class="page">
     <header class="header">
-      <img class="header__logo" src="./images/logo/logo.svg" alt="логотип сайта Место">
+      <img class="header__logo" src="<%=require('./images/logo/logo.svg')%>" alt="логотип сайта Место">
     </header>
     <main class="content">
       <section class="profile">
         <div class="profile__info">
-          <img class="profile__avatar" src="./images/avatar/avatar.jpg" alt="фотография пользователя">
+          <img class="profile__avatar" src="<%=require('./images/avatar/avatar.jpg')%>" alt="фотография пользователя">
           <div class="profile__content">
             <div class="profile__row">
               <h1 class="profile__title">Жак-Ив Кусто</h1>
