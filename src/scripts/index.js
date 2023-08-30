@@ -1,3 +1,4 @@
+// Импорт стилей
 import '../pages/index.css';
 import { initialCards, configFormSelector } from './constants.js';
 import { Card } from './Card.js';
