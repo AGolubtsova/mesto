@@ -17,6 +17,10 @@ class PopupWithImage extends Popup {
     this._popupImage.alt = name;
     super.open();
   }
+
+  setEventListeners() {
+    super.setEventListeners();
+  }
 }
 
 //Экспортируем класс в index.js
