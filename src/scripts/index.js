@@ -1,85 +1,59 @@
 // Импорт стилей
 import '../pages/index.css';
-import { initialCards, configFormSelector } from './constants.js';
+
+// Импорт списка с карточками и селекторами валидации, классов
+import { initialCards, configFormSelector } from '../utils/constants.js';
 import { Card } from './Card.js';
+import Section from './Section.js';
+import UserInfo from './UserInfo.js';
+import PopupWithImage from './PopupWithImage.js';
+import PopupWithForm from './PopupWithForm.js'; 
 import { FormValidator } from './FormValidator.js';
 
-const popupModals = document.querySelectorAll('.popup');
-const popupProfileEditElement = document.querySelector('.popup_profile-edit');
-const popupAddCardElement = document.querySelector('.popup_card-add');
-const zoomImageElement = document.querySelector('.popup_zoom-picture');
-const popupCloseButtonElements = document.querySelectorAll('.popup__close-button');
-const profileEditButtonElement = document.querySelector('.profile__edit-button');
-const formElementEditProfile = popupProfileEditElement.querySelector('.popup__form');
-const nameInput = formElementEditProfile.querySelector('#userName-input');
-const jobInput = formElementEditProfile.querySelector('#userProf-input');
-const placeInput = popupAddCardElement.querySelector('#placeName-input');
-const placeLink = popupAddCardElement.querySelector('#placeLink-input');
-const profileTitle = document.querySelector('.profile__title');
-const profileDescription = document.querySelector('.profile__description');
-const cardContainer = document.querySelector('.elements');
-const imageUrlElement = zoomImageElement.querySelector('.popup__image');
-const imageTitleElement = zoomImageElement.querySelector('.popup__caption');
-const cardPopupOpenButton = document.querySelector('.profile__add-button');
-const formElementAddCard = popupAddCardElement.querySelector('.popup__form');
-const profileForm = document.forms["popupFormProfile"];
-const cardForm = document.forms["popupFormAddCard"];
+// Импорт задействованных в index переменных
+import { 
+  popupCloseButtonElements,
+  profileEditButtonElement,
+  nameInput,
+  jobInput,
+  placeInput,
+  placeLink,
+  cardPopupOpenButton,
+  profileForm,
+  cardForm
+} from '../utils/constants.js';
 
-const openModal = function(modal) {
-  modal.classList.add('popup_opened');
-  document.addEventListener('keydown', closePopupByEscape);
-}
+//Экземпляр класса PopupWithImage
+const popupWithImage = new PopupWithImage('.popup_zoom-picture'); //создала класс для открытия попапа с фотографией
 
-const openProfileEditPopup = function() {
-  formValidatorPopupProfileEdit.resetValidation();
-  openModal(popupProfileEditElement);
-  nameInput.value = profileTitle.textContent;
-  jobInput.value = profileDescription.textContent;
-}
- 
-function openCardPopup() {
-  openModal(popupAddCardElement);
-}
+//Экземпляр класса PopupWithForm
+const PopupProfileEdit = new PopupWithForm('.popup_profile-edit', handleProfileFormSubmit); //Экземпляр класса PopupWithForm
 
-const closeModal = function(modal) {
-  modal.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closePopupByEscape);
-}
-
-/** закртыие модального окна через overlay */
-const closePopupByOverlay = function(evt) {
-  if (evt.target.classList.contains('popup_opened')) {
-    closeModal(evt.target);
-  }
-}
-
-popupModals.forEach((popup) => {
-  popup.addEventListener('click', closePopupByOverlay);
+//Экземпляр класса UserInfo
+const newUserInfo = new UserInfo({
+  userNameSelector: '.profile__title',
+  userJobSelector: '.profile__description'
 });
 
-/** закрытие модального окна через esc */
-const closePopupByEscape = function(evt) {
-  if (evt.key === 'Escape') {
-    const openedPopupElement = document.querySelector('.popup_opened');
-    closeModal(openedPopupElement);
+//Экземпляр класса PopupWithForm
+const popupAddCard = new PopupWithForm('.popup_card-add', () => {
+  const item = {
+    name: placeInput.value,
+    link: placeLink.value
   }
-}
-
-popupCloseButtonElements.forEach(function(item) { 
-  item.addEventListener('click', (evt) => closeModal(evt.target.closest('.popup')));
+  const cardElement = createCard(item);
+  section.addItem(cardElement);
 });
 
-function handleProfileFormSubmit(evt) {
-  evt.preventDefault();  
-  profileTitle.textContent = nameInput.value;
-  profileDescription.textContent = jobInput.value;
-  closeModal(popupProfileEditElement);
-}
+//Экземпляр класса Section
+const section = new Section({
+  items: initialCards,
+  renderer: (item) => {
+    const card = createCard(item);
+    section.addItem(card)}  
+  },'.elements');
 
-/** 
- * создаем объект карточки c помощью функции
- * передаем ее далее как параметр функций
- */
+//создаем объект карточки c помощью функции, передаем ее далее как параметр функций
 function createCardData(name, link) {
   const cardData = {
     userName: name, 
@@ -89,39 +63,41 @@ function createCardData(name, link) {
   return cardData;
 }
 
-function openModalZooom(name, link) {
-  imageTitleElement.textContent = name;
-  imageUrlElement.src = link; 
-  imageUrlElement.alt = name; 
-
-  openModal(zoomImageElement);
-}
-
 function  createCard(item) {
   const card = new Card(createCardData(item.name, item.link), '#element-template', openModalZooom);
   const cardElement = card.generateCard();
   return cardElement;
 }
 
-initialCards.forEach((item) => {
-  const cardElement = createCard(item);
-  cardContainer.prepend(cardElement);
-});
-
-function insertCardOnSubmit(evt) {
-  evt.preventDefault();
-
-  const item = {
-    name: placeInput.value,
-    link: placeLink.value
-  }
-  const cardElement = createCard(item);
-
-  cardContainer.prepend(cardElement);
-  closeModal(popupAddCardElement);
-  formElementAddCard.reset();
-  formValidatorpopupAddCard.resetValidation();
+function handleProfileFormSubmit() {
+  const name = nameInput.value;
+  const info = jobInput.value;
+  newUserInfo.setUserInfo({
+    username: name,
+    profession: info,
+  });
+ 
+  PopupProfileEdit.close();
 }
+
+const openProfileEditPopup = function() {
+  formValidatorPopupProfileEdit.resetValidation();
+
+  const userData = newUserInfo.getUserInfo();
+  nameInput.value = userData.username;
+  jobInput.value = userData.profession;
+
+  PopupProfileEdit.open();
+}
+
+// функция открытия попапа с фотографией
+function openModalZooom(name, link) {
+  popupWithImage.open(name, link);
+}
+
+popupCloseButtonElements.forEach(() => {
+  popupWithImage.setEventListeners();
+});
 
 const formValidatorPopupProfileEdit = new FormValidator(configFormSelector, profileForm);
 formValidatorPopupProfileEdit.enableValidation();
@@ -130,6 +106,12 @@ const formValidatorpopupAddCard = new FormValidator(configFormSelector, cardForm
 formValidatorpopupAddCard.enableValidation();
 
 profileEditButtonElement.addEventListener('click', openProfileEditPopup);
-cardPopupOpenButton.addEventListener('click', openCardPopup);
-formElementEditProfile.addEventListener('submit', handleProfileFormSubmit);
-formElementAddCard.addEventListener('submit', insertCardOnSubmit);
+cardPopupOpenButton.addEventListener('click', () => {
+  popupAddCard.open(); 
+  cardForm.reset();
+  formValidatorpopupAddCard.resetValidation();});
+
+popupWithImage.setEventListeners();
+PopupProfileEdit.setEventListeners();
+popupAddCard.setEventListeners();
+section.renderItems();

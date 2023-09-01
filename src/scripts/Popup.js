@@ -8,7 +8,7 @@ export default class Popup {
   // Метод открытия popup
   open() {
     this._popupItem.classList.add('popup_opened');
-    document.addEventListener('keydown', this._handleEscClose)
+    document.addEventListener('keydown', this._handleEscClose);
   }
 
   // Метод закрытия popup
@@ -27,8 +27,9 @@ export default class Popup {
    // Метод закрытия popup по клику за область формы, в том числе и на кнопку крестик
    setEventListeners() {
       this._popupItem.addEventListener('mousedown', (evt) => {
-        if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close-button')) {
-            this.close;
+        if (evt.target.classList.contains('popup_opened') || 
+            evt.target.classList.contains('popup__close-button')) {
+            this.close();
         }
       });
    }

@@ -6,13 +6,13 @@ class PopupWithForm extends Popup {
     super(popupSelector);
     this._callbackFormSubmit = callbackFormSubmit;
     this._formItem = this._popupItem.querySelector('.popup__form');
-    this._inputList = this._popupForm.querySelectorAll('.popup__input');
+    this._inputList = Array.from(this._formItem.querySelectorAll('.popup__input'));
   }
 
   // Метод собирает данные всех полей формы
   _getInputValues() {
     const formValues = {};
-    this._inputList.forEach(input => {
+    this._inputList.forEach((input) => {
       formValues[input.name] = input.value;
     });
     return formValues;
@@ -22,14 +22,16 @@ class PopupWithForm extends Popup {
     super.setEventListeners();
     this._formItem.addEventListener('submit', (evt) => {
       evt.preventDefault();
-      this._callbackFormSubmit(this._getInputValues());
+      const inputValues = this._getInputValues();
+      this._callbackFormSubmit(inputValues);
+      this.close();
     });
   }
 
   // Метод закрытия popup
   close() {
     super.close();
-    this._popupFormItem.reset();
+    this._formItem.reset();
   }
 }
 

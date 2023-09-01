@@ -1,10 +1,10 @@
 export class Card {
   /* 1. Объект карточки 2. Template элемента*/    
-  constructor(cardData, templateElementSelector, openModalCallback) {
+  constructor(cardData, templateElementSelector, handleCardClick) {
     this._name = cardData.userName;
     this._link = cardData.srcImage;
     this._templateElementSelector = templateElementSelector;
-    this._openModalCallback = openModalCallback;
+    this._handleCardClick = handleCardClick;
   }
 
   /* получаем шаблон карточки;*/
@@ -41,7 +41,7 @@ export class Card {
 
     /*Слушатель нажатия на изображение */
     this._elementImage.addEventListener('click', () => {
-      this._openModalCallback(this._name, this._link);
+      this._handleCardClick(this._name, this._link);
       
     });
  }

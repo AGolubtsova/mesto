@@ -33,3 +33,28 @@ export const configFormSelector  = {
   inactiveButtonClass: 'popup__submit_disabled',
   inputErrorClass: 'popup__input_type_invalid'
 }
+
+const popupProfileEditElement = document.querySelector('.popup_profile-edit');
+const popupAddCardElement = document.querySelector('.popup_card-add');
+const popupCloseButtonElements = document.querySelectorAll('.popup__close-button');
+const profileEditButtonElement = document.querySelector('.profile__edit-button');
+const formElementEditProfile = popupProfileEditElement.querySelector('.popup__form');
+const nameInput = formElementEditProfile.querySelector('#userName-input');
+const jobInput = formElementEditProfile.querySelector('#userProf-input');
+const placeInput = popupAddCardElement.querySelector('#placeName-input');
+const placeLink = popupAddCardElement.querySelector('#placeLink-input');
+const cardPopupOpenButton = document.querySelector('.profile__add-button');
+const profileForm = document.forms["popupFormProfile"];
+const cardForm = document.forms["popupFormAddCard"];
+
+export {
+  popupCloseButtonElements,
+  profileEditButtonElement,
+  nameInput,
+  jobInput,
+  placeInput,
+  placeLink,
+  cardPopupOpenButton,
+  profileForm,
+  cardForm
+}
