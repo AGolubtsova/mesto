@@ -18,9 +18,6 @@ class PopupWithImage extends Popup {
     super.open();
   }
 
-  setEventListeners() {
-    super.setEventListeners();
-  }
 }
 
 //Экспортируем класс в index.js

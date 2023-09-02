@@ -3,12 +3,12 @@ import '../pages/index.css';
 
 // Импорт списка с карточками и селекторами валидации, классов
 import { initialCards, configFormSelector } from '../utils/constants.js';
-import { Card } from './Card.js';
-import Section from './Section.js';
-import UserInfo from './UserInfo.js';
-import PopupWithImage from './PopupWithImage.js';
-import PopupWithForm from './PopupWithForm.js'; 
-import { FormValidator } from './FormValidator.js';
+import { Card } from '../components/Card.js';
+import Section from '../components/Section.js';
+import UserInfo from '../components/UserInfo.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js'; 
+import { FormValidator } from '../components/FormValidator.js';
 
 // Импорт задействованных в index переменных
 import { 
@@ -16,8 +16,6 @@ import {
   profileEditButtonElement,
   nameInput,
   jobInput,
-  placeInput,
-  placeLink,
   cardPopupOpenButton,
   profileForm,
   cardForm
@@ -27,7 +25,16 @@ import {
 const popupWithImage = new PopupWithImage('.popup_zoom-picture'); //создала класс для открытия попапа с фотографией
 
 //Экземпляр класса PopupWithForm
-const PopupProfileEdit = new PopupWithForm('.popup_profile-edit', handleProfileFormSubmit); //Экземпляр класса PopupWithForm
+const popupProfileEdit = new PopupWithForm('.popup_profile-edit', (formValues) =>{
+  const name = formValues['username'];     
+  const info = formValues['profession'];  
+  newUserInfo.setUserInfo({
+    username: name,
+    profession: info,
+  });
+ 
+  popupProfileEdit.close();
+});
 
 //Экземпляр класса UserInfo
 const newUserInfo = new UserInfo({
@@ -36,10 +43,10 @@ const newUserInfo = new UserInfo({
 });
 
 //Экземпляр класса PopupWithForm
-const popupAddCard = new PopupWithForm('.popup_card-add', () => {
+const popupAddCard = new PopupWithForm('.popup_card-add', (formValues) => {
   const item = {
-    name: placeInput.value,
-    link: placeLink.value
+    name: formValues['name'],
+    link: formValues['link'],
   }
   const cardElement = createCard(item);
   section.addItem(cardElement);
@@ -69,17 +76,6 @@ function  createCard(item) {
   return cardElement;
 }
 
-function handleProfileFormSubmit() {
-  const name = nameInput.value;
-  const info = jobInput.value;
-  newUserInfo.setUserInfo({
-    username: name,
-    profession: info,
-  });
- 
-  PopupProfileEdit.close();
-}
-
 const openProfileEditPopup = function() {
   formValidatorPopupProfileEdit.resetValidation();
 
@@ -87,7 +83,7 @@ const openProfileEditPopup = function() {
   nameInput.value = userData.username;
   jobInput.value = userData.profession;
 
-  PopupProfileEdit.open();
+  popupProfileEdit.open();
 }
 
 // функция открытия попапа с фотографией
@@ -108,10 +104,9 @@ formValidatorpopupAddCard.enableValidation();
 profileEditButtonElement.addEventListener('click', openProfileEditPopup);
 cardPopupOpenButton.addEventListener('click', () => {
   popupAddCard.open(); 
-  cardForm.reset();
   formValidatorpopupAddCard.resetValidation();});
 
 popupWithImage.setEventListeners();
-PopupProfileEdit.setEventListeners();
+popupProfileEdit.setEventListeners();
 popupAddCard.setEventListeners();
 section.renderItems();
