@@ -16,9 +16,7 @@ import {
   profileEditButtonElement,
   nameInput,
   jobInput,
-  cardPopupOpenButton,
-  profileForm,
-  cardForm
+  cardPopupOpenButton
 } from '../utils/constants.js';
 
 //Экземпляр класса PopupWithImage
@@ -77,7 +75,7 @@ function  createCard(item) {
 }
 
 const openProfileEditPopup = function() {
-  formValidatorPopupProfileEdit.resetValidation();
+  formValidators['popupFormProfile'].resetValidation();
 
   const userData = newUserInfo.getUserInfo();
   nameInput.value = userData.username;
@@ -95,16 +93,28 @@ popupCloseButtonElements.forEach(() => {
   popupWithImage.setEventListeners();
 });
 
-const formValidatorPopupProfileEdit = new FormValidator(configFormSelector, profileForm);
-formValidatorPopupProfileEdit.enableValidation();
+const formValidators = {}
 
-const formValidatorpopupAddCard = new FormValidator(configFormSelector, cardForm);
-formValidatorpopupAddCard.enableValidation();
+// Включение валидации
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement)
+// получаем данные из атрибута `name` у формы
+    const formName = formElement.getAttribute('name');
+
+   // в объект записываем под именем формы
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(configFormSelector);
 
 profileEditButtonElement.addEventListener('click', openProfileEditPopup);
 cardPopupOpenButton.addEventListener('click', () => {
   popupAddCard.open(); 
-  formValidatorpopupAddCard.resetValidation();});
+  formValidators['popupFormAddCard'].resetValidation();});
 
 popupWithImage.setEventListeners();
 popupProfileEdit.setEventListeners();

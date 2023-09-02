@@ -41,15 +41,11 @@ const formElementEditProfile = popupProfileEditElement.querySelector('.popup__fo
 const nameInput = formElementEditProfile.querySelector('#userName-input');
 const jobInput = formElementEditProfile.querySelector('#userProf-input');
 const cardPopupOpenButton = document.querySelector('.profile__add-button');
-const profileForm = document.forms["popupFormProfile"];
-const cardForm = document.forms["popupFormAddCard"];
 
 export {
   popupCloseButtonElements,
   profileEditButtonElement,
   nameInput,
   jobInput,
-  cardPopupOpenButton,
-  profileForm,
-  cardForm
+  cardPopupOpenButton
 }
