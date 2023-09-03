@@ -12,7 +12,6 @@ import { FormValidator } from '../components/FormValidator.js';
 
 // Импорт задействованных в index переменных
 import { 
-  popupCloseButtonElements,
   profileEditButtonElement,
   nameInput,
   jobInput,
@@ -88,10 +87,6 @@ const openProfileEditPopup = function() {
 function openModalZooom(name, link) {
   popupWithImage.open(name, link);
 }
-
-popupCloseButtonElements.forEach(() => {
-  popupWithImage.setEventListeners();
-});
 
 const formValidators = {}
 

@@ -35,7 +35,6 @@ export const configFormSelector  = {
 }
 
 const popupProfileEditElement = document.querySelector('.popup_profile-edit');
-const popupCloseButtonElements = document.querySelectorAll('.popup__close-button');
 const profileEditButtonElement = document.querySelector('.profile__edit-button');
 const formElementEditProfile = popupProfileEditElement.querySelector('.popup__form');
 const nameInput = formElementEditProfile.querySelector('#userName-input');
@@ -43,7 +42,6 @@ const jobInput = formElementEditProfile.querySelector('#userProf-input');
 const cardPopupOpenButton = document.querySelector('.profile__add-button');
 
 export {
-  popupCloseButtonElements,
   profileEditButtonElement,
   nameInput,
   jobInput,
