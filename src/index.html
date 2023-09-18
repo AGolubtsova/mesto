@@ -14,7 +14,10 @@
     <main class="content">
       <section class="profile">
         <div class="profile__info">
-          <img class="profile__avatar" src="<%=require('./images/avatar/avatar.jpg')%>" alt="фотография пользователя">
+          <div class="profile__avatar-area">
+            <img class="profile__avatar" src="<%=require('./images/avatar/avatar.jpg')%>" alt="фотография пользователя">
+            <button type="button" class="profile__avatar-edit-button"></button>
+          </div>  
           <div class="profile__content">
             <div class="profile__row">
               <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -30,6 +33,7 @@
     <footer class="footer">
       <p class="footer__copyrights">&copy; 2023 Mesto Russia</p>
     </footer>
+    <!-- Popup редактирования профиля -->
     <div class="popup popup_profile-edit">
       <div class="popup__container">
         <button type="button" class="popup__close-button" aria-label="Закрыть всплывающее окно"></button>
@@ -45,6 +49,19 @@
         </form>
       </div>
     </div>
+     <!-- Начало popup обновления аватара -->
+    <div class="popup popup_avatar-edit">
+      <div class="popup__container">
+        <form class="popup__form" name="popupAvatarForm" novalidate>
+          <h2 class="popup__title">Обновить аватар</h2>
+          <input type="url" class="popup__input" name="userAvatar" id="userAvatar-input" placeholder="Ссылка на картинку" required>
+          <span class="popup__input-error" id="userAvatar-error"></span>
+          <button type="submit" class="popup__submit">Сохранить</button>
+        </form>
+        <button type="button" class="popup__close-button"></button>
+      </div>
+    </div>
+    <!-- Popup добавления карточки -->
     <div class="popup popup_card-add">
       <div class="popup__container">
         <button type="button" class="popup__close-button" aria-label="Закрыть всплывающее окно"></button>
@@ -60,6 +77,7 @@
         </form>  
       </div>
     </div>
+     <!-- Popup увеличение изображения по клику -->
     <div class="popup popup_zoom-picture">
       <div class="popup__container-image">
         <button type="button" class="popup__close-button" aria-label="Закрыть всплывающее окно"></button>
@@ -69,13 +87,23 @@
         </figure>
       </div>
     </div>
+     <!-- Popup удаления карточки -->
+    <div class="popup popup_delete">
+      <div class="popup__container popup_delete__container">
+        <button class="popup__close-button" type="button"></button>
+        <h2 class="popup__title popup_delete__title">Вы уверены?</h2>
+        <button type="submit" class="popup__submit popup_delete__submit" aria-label="Удалить карточку">Да</button>
+    </div>
   </div> 
   <template id="element-template">
     <li class="element">
       <img class="element__image" src="#" alt="#">
       <div class="element__title-wrapper">
         <h2 class="element__title"></h2>
-        <button type="button" class="element__like-button" aria-label="Поставить лайк"></button>
+        <div class="element__like-area">
+          <button type="button" class="element__like-button" aria-label="Поставить лайк"></button>
+          <p class="element__like-count">0</p>
+        </div>
       </div>
       <button class="element__delete-button" aria-label="Удалить карточку"></button>
     </li>

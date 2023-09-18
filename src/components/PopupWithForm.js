@@ -7,6 +7,8 @@ class PopupWithForm extends Popup {
     this._callbackFormSubmit = callbackFormSubmit;
     this._formItem = this._popupItem.querySelector('.popup__form');
     this._inputList = Array.from(this._formItem.querySelectorAll('.popup__input'));
+    this._popupButton = this._formItem.querySelector('.popup__submit');
+    this._popupButtonTextContent = this._popupButton.textContent;
   }
 
   // Метод собирает данные всех полей формы
@@ -32,6 +34,14 @@ class PopupWithForm extends Popup {
   close() {
     super.close();
     this._formItem.reset();
+  }
+
+  renderLoading(isLoading) {
+    if(isLoading) {
+      this._popupButton.textContent = 'Сохранение...';
+    } else {
+      this._popupButton.textContent = this._popupButtonTextContent;
+    }
   }
 }
 
