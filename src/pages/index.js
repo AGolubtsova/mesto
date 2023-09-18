@@ -37,7 +37,7 @@ const newUserInfo = new UserInfo({
 const popupWithImage = new PopupWithImage('.popup_zoom-picture');
 
 //Экземпляр класса PopupDelete
-const popupDelete = new PopupDelete('.popup-delete');
+const popupDelete = new PopupDelete('.popup_delete');
 
 // Объявление экземпляра API
 const optionsApi = {
