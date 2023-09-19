@@ -43,7 +43,4 @@
 .popup__figure{margin:0;overflow:hidden;padding:0}
 .popup__image{max-height:75vh;max-width:75vw;-o-object-fit:contain;object-fit:contain;-o-object-position:center;object-position:center;vertical-align:middle}
 .popup__caption{color:#fff;font-size:12px;font-weight:400;line-height:14.52px;padding-top:10px}
-.popup-delete__container{max-height:181px}
-.popup_delete__submit{margin-bottom:36px;margin-top:0}
-.popup-delete__title{margin-bottom:38px}
 
