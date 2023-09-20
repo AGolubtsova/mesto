@@ -15,12 +15,20 @@ export default class UserInfo {
 
     // Метод принимает новые данные пользователя и добавляет их на страницу
     setUserInfo(data) {
-      this._username.textContent = data.name;
-      this._userJob.textContent = data.about;
-      this.setUserAvatar(data);
+      if(data.name) {
+        this._username.textContent = data.name;
+      }
+      if(data.about) {
+        this._userJob.textContent = data.about;
+      }
+      if(data) {
+        this.setUserAvatar(data);
+      }
     }
 
     setUserAvatar(data) {
-      this._profileAvatar.src = data.avatar;
+      if(data.avatar) {
+        this._profileAvatar.src = data.avatar;
+      }
     }
 }

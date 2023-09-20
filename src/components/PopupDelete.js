@@ -15,7 +15,6 @@ export class PopupDelete extends Popup {
         super.setEventListeners();
         this._popupConfirmButton.addEventListener('click', () => {
           this._submitHandler();
-          this.close()
         });
     }
 }

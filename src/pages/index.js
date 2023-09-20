@@ -49,24 +49,12 @@ const optionsApi = {
 }
 const api = new Api(optionsApi);
 
-api.getUserInfo()
-.then((res) => {
-  userName.textContent = res.name;
-  userInfo.textContent = res.about;
-  userAvatar.src = res.avatar;
-})
-
 const cardList = new Section ({
   renderer: (data) => {
     const card = createCard(data);
     cardList.addItem(card)
   },
 },'.elements')
-
-api.getCards()
-  .then((cards) => {
-  cardList.renderItems(cards);
-  })
 
 // функция открытия попапа с фотографией
 function handleCardClick(name, link) {
@@ -100,7 +88,8 @@ function createCard(data) {
       .then(() => {
         card._remove();
         popupDelete.close();
-      });
+      })
+      .catch((error) => { console.log(`При закрытии карточки возникла ошибка, ${error}`) })
     });
   }
 
@@ -115,7 +104,7 @@ api.getAllNeededData()
     userId = userData._id;
     cardList.renderItems(cards);
   })
-  .catch((err) => console.log(err))
+  .catch((error) => console.log(error))
 
 //Экземпляр класса PopupWithForm
 const popupAddCard = new PopupWithForm('.popup_card-add', (formValues) => {
@@ -126,6 +115,7 @@ const popupAddCard = new PopupWithForm('.popup_card-add', (formValues) => {
       cardList.addItem(cardElement);
       popupAddCard.close();
     })
+    .catch((error) => { console.log(`При добавлении карточки возникла ошибка, ${error}`) })
   });
 
 //Экземпляр класса PopupWithForm
@@ -134,8 +124,10 @@ const popupProfileEdit = new PopupWithForm('.popup_profile-edit', (formValues) =
   api.sendUserInfo(formValues)
   .then((res) => {
     newUserInfo.setUserInfo(res);
+    popupProfileEdit.close();
   })
-  popupProfileEdit.close();
+  .catch((error) => { console.log(`При редактировании профиля возникла ошибка, ${error}`) })
+  //popupProfileEdit.close();
 });
 
 const formValidators = {}
@@ -164,8 +156,8 @@ const popupAvatar = new PopupWithForm('.popup_avatar-edit', (data) => {
     formValidators['popupAvatarForm'].resetValidation();
     popupAvatar.close();
   })
-  .catch((err) => console.log(err))
-  .finally( _ => popupAvatar.renderLoading(false))
+  .catch((error) => console.log(error))
+  .finally(() => popupAvatar.renderLoading(false))
 })
 popupAvatar.setEventListeners();
 

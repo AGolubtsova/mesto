@@ -14,9 +14,6 @@ export default class Api {
   
           throw new Error("Ошибка");
         })
-        .catch((error) => {
-          console.log(error);
-        });
     }
 
     // Метод инициализации карточек с сервера
